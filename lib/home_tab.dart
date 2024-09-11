@@ -77,6 +77,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
         title: Text(customTitle),
+        backgroundColor: Colors.transparent,
       ),
       body: Center(
         child: _widgetOptions.elementAt(currentIndex),
