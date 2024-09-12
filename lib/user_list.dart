@@ -1,9 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 import 'models.dart';
-import 'normal_refresh_header.dart';
 
 class UserListPage extends StatefulWidget {
   const UserListPage({super.key});
@@ -41,7 +40,6 @@ class _UserListPage extends State<UserListPage> {
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
-      header: FrameAnimationHeader(),
       onRefresh: () async {
         // Handle refresh logic
         await Future.delayed(const Duration(seconds: 2));

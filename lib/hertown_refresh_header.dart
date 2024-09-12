@@ -1,83 +1,41 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:easy_refresh/easy_refresh.dart';
+import 'package:flutter/widgets.dart';
 
 class HertownRefreshHeader extends Header {
-  /// Key
   final Key? key;
 
-  final LinkHeaderNotifier linkNotifier = LinkHeaderNotifier();
-
-  HertownRefreshHeader({
-    this.key,
-    super.enableHapticFeedback,
-  }) : super(
-          extent: 80.0,
-          triggerDistance: 80.0,
-          float: false,
-          enableInfiniteRefresh: false,
-          completeDuration: const Duration(seconds: 1),
-        );
+  const HertownRefreshHeader(
+      {this.key, super.triggerOffset = 70, super.clamping = false});
 
   @override
-  Widget contentBuilder(
-      BuildContext context,
-      RefreshMode refreshState,
-      double pulledExtent,
-      double refreshTriggerPullDistance,
-      double refreshIndicatorExtent,
-      AxisDirection axisDirection,
-      bool float,
-      Duration? completeDuration,
-      bool enableInfiniteRefresh,
-      bool success,
-      bool noMore) {
-    // 不能为水平方向以及反向
-    assert(axisDirection == AxisDirection.down,
-        'Widget can only be vertical and cannot be reversed');
-    linkNotifier.contentBuilder(
-        context,
-        refreshState,
-        pulledExtent,
-        refreshTriggerPullDistance,
-        refreshIndicatorExtent,
-        axisDirection,
-        float,
-        completeDuration,
-        enableInfiniteRefresh,
-        success,
-        noMore);
-    return HertownRefreshHeaderWidget(
-      key: key,
-      linkNotifier: linkNotifier,
-    );
+  Widget build(BuildContext context, IndicatorState state) {
+    return _HertownRefreshHeaderIndicator(state);
   }
 }
 
-class HertownRefreshHeaderWidget extends StatefulWidget {
-  final LinkHeaderNotifier linkNotifier;
+class _HertownRefreshHeaderIndicator extends StatefulWidget {
+  final IndicatorState state;
 
-  const HertownRefreshHeaderWidget({
-    super.key,
-    required this.linkNotifier,
-  });
+  const _HertownRefreshHeaderIndicator(this.state);
 
   @override
-  HertownRefreshHeaderWidgetState createState() {
-    return HertownRefreshHeaderWidgetState();
-  }
+  State<_HertownRefreshHeaderIndicator> createState() =>
+      _HertownRefreshHeaderIndicatorState();
 }
 
-class HertownRefreshHeaderWidgetState
-    extends State<HertownRefreshHeaderWidget> {
-  RefreshMode get _refreshState => widget.linkNotifier.refreshState;
+class _HertownRefreshHeaderIndicatorState
+    extends State<_HertownRefreshHeaderIndicator>
+    with TickerProviderStateMixin<_HertownRefreshHeaderIndicator> {
+  IndicatorMode get _refreshState => widget.state.mode;
 
-  double get _pulledExtent => widget.linkNotifier.pulledExtent;
+  double get _pulledExtent => widget.state.offset;
 
-  double get _indicatorExtent => widget.linkNotifier.refreshIndicatorExtent;
+  double get _indicatorExtent => widget.state.triggerOffset;
 
-  bool get _noMore => widget.linkNotifier.noMore;
+  bool get _noMore => widget.state.result == IndicatorResult.noMore;
 
   late List<String> _dragFrameImagePaths;
   late List<String> _refreshFrameImagePaths;
@@ -147,10 +105,10 @@ class HertownRefreshHeaderWidgetState
   @override
   Widget build(BuildContext context) {
     if (_noMore) return Container();
-    if (_refreshState == RefreshMode.refreshed) {
+    if (_refreshState == IndicatorMode.processed) {
       isBeginRefresh = true;
-    } else if (_refreshState == RefreshMode.done ||
-        _refreshState == RefreshMode.inactive) {
+    } else if (_refreshState == IndicatorMode.done ||
+        _refreshState == IndicatorMode.inactive) {
       isBeginRefresh = false;
     }
     _updateDragFrameIndex();
@@ -160,7 +118,7 @@ class HertownRefreshHeaderWidgetState
           height: _pulledExtent,
           alignment: Alignment.bottomCenter,
           child: Image.asset(
-            (_refreshState == RefreshMode.refreshed)
+            (_refreshState == IndicatorMode.processed)
                 ? _refreshFrameImagePaths[_refreshFrameIndex]
                 : _dragFrameImagePaths[_dragFrameIndex],
             fit: BoxFit.cover,

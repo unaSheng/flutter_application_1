@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/hertown_refresh_footer.dart';
 import 'package:flutter_application_1/hertown_refresh_header.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 
 class CustomListPage extends StatefulWidget {
   const CustomListPage({super.key});
@@ -17,7 +17,7 @@ class _CustomListPage extends State<CustomListPage>
   @override
   Widget build(BuildContext context) {
     return EasyRefresh(
-      header: HertownRefreshHeader(),
+      header: const HertownRefreshHeader(),
       onLoad: () async {
         // 模拟网络请求加载更多数据
         await Future.delayed(const Duration(seconds: 2));
@@ -26,7 +26,7 @@ class _CustomListPage extends State<CustomListPage>
         });
       },
       onRefresh: () async {},
-      footer: HertownRefreshFooter(),
+      footer: const HertownRefreshFooter(),
       child: ListView.builder(
         physics: const AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, index) => ListTile(title: Text('Item $index')),
