@@ -78,9 +78,14 @@ class _HertownRefreshHeaderIndicatorState
     _refreshFrameImagePaths = refreshPaths;
   }
 
+  void _preloadLocalImage(BuildContext context, String imagePath) {
+    final imageProvider = AssetImage(imagePath);
+    precacheImage(imageProvider, context);
+  }
+
   void _updateDragFrameIndex() {
     int dragFrames = _dragFrameImagePaths.length;
-    int index = (_pulledExtent / _indicatorExtent * dragFrames).toInt();
+    int index = ((_pulledExtent - 20) / _indicatorExtent * dragFrames).toInt();
     _dragFrameIndex = min(dragFrames - 1, max(0, index));
   }
 
@@ -104,6 +109,12 @@ class _HertownRefreshHeaderIndicatorState
 
   @override
   Widget build(BuildContext context) {
+    List<String> pathes = (_dragFrameImagePaths + _refreshFrameImagePaths);
+
+    for (int i = 0; i <= pathes.length - 1; i++) {
+      _preloadLocalImage(context, pathes[i]);
+    }
+
     if (_noMore) return Container();
     if (_refreshState == IndicatorMode.processed) {
       isBeginRefresh = true;
