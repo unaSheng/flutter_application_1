@@ -8,7 +8,11 @@ class HertownRefreshHeader extends Header {
   final Key? key;
 
   const HertownRefreshHeader(
-      {this.key, super.triggerOffset = 70, super.clamping = false});
+      {this.key, 
+      super.triggerOffset = 60,
+      super.position = IndicatorPosition.locator,
+       super.clamping = false,
+       super.processedDuration = Duration.zero});
 
   @override
   Widget build(BuildContext context, IndicatorState state) {
@@ -116,7 +120,7 @@ class _HertownRefreshHeaderIndicatorState
     }
 
     if (_noMore) return Container();
-    if (_refreshState == IndicatorMode.processed) {
+    if (_refreshState == IndicatorMode.ready || _refreshState == IndicatorMode.processing || _refreshState == IndicatorMode.processed) {
       isBeginRefresh = true;
     } else if (_refreshState == IndicatorMode.done ||
         _refreshState == IndicatorMode.inactive) {
@@ -129,7 +133,7 @@ class _HertownRefreshHeaderIndicatorState
           height: _pulledExtent,
           alignment: Alignment.bottomCenter,
           child: Image.asset(
-            (_refreshState == IndicatorMode.processed)
+            (_refreshState == IndicatorMode.ready || _refreshState == IndicatorMode.processing || _refreshState == IndicatorMode.processed)
                 ? _refreshFrameImagePaths[_refreshFrameIndex]
                 : _dragFrameImagePaths[_dragFrameIndex],
             fit: BoxFit.cover,
