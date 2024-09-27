@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.6
 
   easy_refresh: ^3.4.0
+  flutter_html: ^2.2.1
 
 dev_dependencies:
 

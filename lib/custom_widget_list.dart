@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/base_refresh_view.dart';
+
 import 'package:flutter_application_1/hertown_refresh_footer.dart';
 import 'package:flutter_application_1/hertown_refresh_header.dart';
 import 'package:easy_refresh/easy_refresh.dart';
@@ -80,12 +80,12 @@ class _CustomListPage extends State<CustomListPage>
             setState(() {
               items.addAll(List.generate(10, (i) => items.length + i + 1));
             });
-            _controller.finishLoad(items.length >= 30
+            _controller.finishLoad(items.length >= 300
                 ? IndicatorResult.noMore
                 : IndicatorResult.success);
           },
           header: const HertownRefreshHeader(),
-          footer: const HertownRefreshFooter(),
+          footer: const HertownRefreshFooter(position: IndicatorPosition.locator),
           child: CustomScrollView(
             scrollDirection: Axis.vertical,
             slivers: [

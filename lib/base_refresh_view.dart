@@ -3,7 +3,6 @@ library;
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'hertown_refresh_footer.dart';
 import 'hertown_refresh_header.dart';
@@ -67,7 +66,6 @@ class BaseRefreshView extends StatefulWidget {
 }
 
 class BaseRefreshViewState<T extends BaseRefreshView> extends State<T> {
-  bool _isNetWorkError = false;
   bool _isShowShimmer = false;
 
   bool _isFirstLoad = true;
@@ -148,17 +146,6 @@ class BaseRefreshViewState<T extends BaseRefreshView> extends State<T> {
           const FooterLocator.sliver(),
         ],
       );
-
-      return ListView.separated(
-        // 取消footer和cell之间的空白
-        padding: widget.padding,
-        shrinkWrap: hasHeaderOrFooter,
-        physics:
-            hasHeaderOrFooter ? const NeverScrollableScrollPhysics() : null,
-        itemCount: widget.data.length,
-        itemBuilder: widget.itemBuilder!,
-        separatorBuilder: widget.separatorBuilder!,
-      );
     }
   }
 
@@ -217,7 +204,6 @@ class BaseRefreshViewState<T extends BaseRefreshView> extends State<T> {
   void onLoadSuccess(bool isLoadMore, List tempData, bool hasMore) {
     setState(() {
       _isShowShimmer = false;
-      _isNetWorkError = false;
       _isFirstLoad = false;
     });
     _handleRefresh(isLoadMore, tempData, hasMore, false);
@@ -228,7 +214,6 @@ class BaseRefreshViewState<T extends BaseRefreshView> extends State<T> {
     setState(() {
       _isFirstLoad = false;
       _isShowShimmer = false;
-      _isNetWorkError = true;
     });
     _handleRefresh(isLoadMore, [], false, true);
   }
@@ -256,60 +241,3 @@ class BaseRefreshViewState<T extends BaseRefreshView> extends State<T> {
   }
 }
 
-/// 设置EasyRefresh的默认样式
-// ignore: unused_element
-void initEasyRefresh({isChinese = true}) {
-  const classicHeaderChinese = ClassicHeader(
-    dragText: '下拉刷新',
-    armedText: '释放刷新',
-    readyText: '加载中...',
-    processingText: '加载中...',
-    processedText: '加载完成',
-    noMoreText: '没有更多',
-    failedText: '加载失败',
-    messageText: '最后更新于 %T',
-  );
-
-  const classicFooterChinese = ClassicFooter(
-    dragText: '上拉加载',
-    armedText: '释放刷新',
-    readyText: '加载中...',
-    processingText: '加载中...',
-    processedText: '加载完成',
-    noMoreText: '没有更多',
-    failedText: '加载失败',
-    messageText: '最后更新于 %T',
-    showMessage: false, // 隐藏更新时间
-  );
-
-  const classicHeaderEnglish = ClassicHeader(
-    dragText: 'Pull to refresh',
-    armedText: 'Release ready',
-    readyText: 'Refreshing...',
-    processingText: 'Refreshing...',
-    processedText: 'Succeeded',
-    noMoreText: 'No more',
-    failedText: 'Failed',
-    messageText: 'Last updated at %T',
-  );
-
-  const classicFooterEnglish = ClassicFooter(
-    dragText: 'Pull to load',
-    armedText: 'Release ready',
-    readyText: 'Loading...',
-    processingText: 'Loading...',
-    processedText: 'Succeeded',
-    noMoreText: 'No more',
-    failedText: 'Failed',
-    messageText: 'Last updated at %T',
-    showMessage: false, // 隐藏更新时间
-  );
-
-  // SchedulerBinding.instance.addPostFrameCallback((Duration timestamp) {
-  //   // 设置EasyRefresh的默认样式
-  //   EasyRefresh.defaultHeaderBuilder =
-  //       () => isChinese ? classicHeaderChinese : classicHeaderEnglish;
-  //   EasyRefresh.defaultFooterBuilder =
-  //       () => isChinese ? classicFooterChinese : classicFooterEnglish;
-  // });
-}

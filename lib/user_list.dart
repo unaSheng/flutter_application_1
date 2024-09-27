@@ -14,17 +14,6 @@ class UserListPage extends StatefulWidget {
 class _UserListPage extends State<UserListPage> {
   List<User> users = [];
 
-  Future<void> _handleRefresh() async {
-    await Future.delayed(const Duration(seconds: 2));
-    rootBundle.loadString("assets/userList.json").then((data) {
-      var userObjsJson = jsonDecode(data)['users'] as List;
-      List<User> userObjs =
-          userObjsJson.map((tagJson) => User.fromJson(tagJson)).toList();
-      users = userObjs;
-      setState(() {});
-    });
-  }
-
   @override
   void initState() {
     rootBundle.loadString("assets/userList.json").then((data) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_refresh/easy_refresh.dart';
-import 'package:flutter/widgets.dart';
+
 
 class HertownRefreshFooter extends Footer {
   final Key? key;
@@ -9,9 +9,12 @@ class HertownRefreshFooter extends Footer {
   const HertownRefreshFooter(
       {this.key,
       this.noMoreText,
-      super.triggerOffset = 20,
       super.position = IndicatorPosition.locator,
-      super.clamping = false});
+      super.triggerOffset = 60,
+      super.clamping = false,
+      super.processedDuration = Duration.zero,
+      super.infiniteOffset = 60
+      });
 
   @override
   Widget build(BuildContext context, IndicatorState state) {
@@ -53,7 +56,8 @@ class _HertownRefreshFooterIndicatorState
     if (text != null) {
       return Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.fromLTRB(0, 10, 0, 20 + MediaQuery.of(context).padding.bottom),
+        padding: EdgeInsets.fromLTRB(
+            0, 10, 0, 20 + MediaQuery.of(context).padding.bottom),
         child: Text(text,
             style: const TextStyle(
                 fontSize: 12, color: Color.fromRGBO(0, 0, 0, 0.3))),
@@ -66,7 +70,8 @@ class _HertownRefreshFooterIndicatorState
 
     return Container(
       alignment: AlignmentDirectional.center,
-      padding: EdgeInsets.fromLTRB(0, 10, 0, 20 + MediaQuery.of(context).padding.bottom),
+      padding: EdgeInsets.fromLTRB(
+          0, 10, 0, 20 + MediaQuery.of(context).padding.bottom),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

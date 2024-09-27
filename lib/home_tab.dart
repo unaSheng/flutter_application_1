@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/topic_content_creator_desc.dart';
 import 'custom_widget_list.dart';
 import 'user_list.dart';
 import 'home.dart';
@@ -60,6 +61,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
     const MyHomePage(title: ''),
     const UserListPage(),
     const CustomListPage(),
+    const TopicContentCreatorDesc()
   ];
 
   String get customTitle {
@@ -67,8 +69,10 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
       return '首页';
     } else if (currentIndex == 1) {
       return '消息';
+    } else if (currentIndex == 2) {
+      return "我的";
     }
-    return '我的';
+    return '更多';
   }
 
   @override
@@ -86,9 +90,9 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
         currentIndex: currentIndex,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.message_rounded), label: '消息'),
+          BottomNavigationBarItem(icon: Icon(Icons.message_rounded), label: '消息'),
           BottomNavigationBarItem(icon: Icon(Icons.people), label: '我的'),
+          BottomNavigationBarItem(icon: Icon(Icons.more), label: '更多'),
         ],
         onTap: onTabChanged,
         selectedItemColor: Colors.amber[800],
