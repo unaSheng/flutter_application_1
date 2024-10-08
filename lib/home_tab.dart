@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/topic_content_creator_desc.dart';
+import 'package:flutter_application_1/normal_feed_list_page.dart';
+import 'package:flutter_application_1/visible_test.dart';
 import 'custom_widget_list.dart';
 import 'user_list.dart';
 import 'home.dart';
@@ -59,9 +60,9 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const MyHomePage(title: ''),
-    const UserListPage(),
+    VisibilityDetectorDemoPage(),
     const CustomListPage(),
-    const TopicContentCreatorDesc()
+    const NormalFeedListPage()
   ];
 
   String get customTitle {
