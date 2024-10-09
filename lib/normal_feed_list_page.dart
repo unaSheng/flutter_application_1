@@ -5,7 +5,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/hertown_refresh_footer.dart';
 import 'package:flutter_application_1/hertown_refresh_header.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-
 class VisibleItem {
   VisibilityInfo info;
   int index;
