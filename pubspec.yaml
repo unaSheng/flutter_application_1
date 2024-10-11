@@ -30,7 +30,6 @@ environment:
 dependencies:
   provider: ^6.1.2
   visibility_detector: ^0.4.0+2
-
   json_annotation: ^4.9.0
 
   flutter:

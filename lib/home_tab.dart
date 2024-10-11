@@ -43,8 +43,7 @@ class BottomNavigationBarPageApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false,
-         home: BottomNavigationBarPage());
+        debugShowCheckedModeBanner: false, home: BottomNavigationBarPage());
   }
 }
 
@@ -91,7 +90,8 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
         currentIndex: currentIndex,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
-          BottomNavigationBarItem(icon: Icon(Icons.message_rounded), label: '消息'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.message_rounded), label: '消息'),
           BottomNavigationBarItem(icon: Icon(Icons.people), label: '我的'),
           BottomNavigationBarItem(icon: Icon(Icons.more), label: '更多'),
         ],
