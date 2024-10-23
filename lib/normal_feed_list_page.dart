@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/hertown_refresh_footer.dart';
 import 'package:flutter_application_1/hertown_refresh_header.dart';
+import 'package:flutter_application_1/profile_page.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+
 class VisibleItem {
   VisibilityInfo info;
   int index;
@@ -139,13 +141,19 @@ class ListItemWidget extends StatefulWidget {
 class _ListItemWidgetState extends State<ListItemWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Item ${widget.index}'),
-        Text(widget.content),
-        const Divider(color: Colors.red)
-      ],
-    );
+    return InkWell(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute<void>(
+            builder: (BuildContext context) => const UserProfilePage(),
+          ));
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Item ${widget.index}'),
+            Text(widget.content),
+            const Divider(color: Colors.red)
+          ],
+        ));
   }
 }

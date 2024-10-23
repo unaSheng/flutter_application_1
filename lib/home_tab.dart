@@ -97,6 +97,7 @@ class _BottomNavigationBarPageState extends State<BottomNavigationBarPage> {
         ],
         onTap: onTabChanged,
         selectedItemColor: Colors.amber[800],
+        unselectedItemColor: Colors.black,
         selectedFontSize: 13,
         unselectedFontSize: 13,
       ),
